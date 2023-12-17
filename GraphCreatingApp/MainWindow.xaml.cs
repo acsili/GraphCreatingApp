@@ -149,9 +149,6 @@ namespace GraphCreatingApp
                 }
             }
 
-
-
-
         }
 
         private void CreateButton_Click(object sender, RoutedEventArgs e)
@@ -191,6 +188,34 @@ namespace GraphCreatingApp
 
         }
 
+
+        List<SolidColorBrush> brushes= new List<SolidColorBrush>()
+        {
+            Brushes.LightPink,
+            Brushes.DarkKhaki,
+            Brushes.DarkGreen,
+            Brushes.Fuchsia,
+            Brushes.DimGray,
+            Brushes.Firebrick,
+            Brushes.Magenta,
+            Brushes.White,
+            Brushes.LightGreen,
+            Brushes.LightBlue,
+            Brushes.AliceBlue,
+            Brushes.Aqua,
+            Brushes.Aquamarine,
+            Brushes.Blue,
+            Brushes.Orchid,
+            Brushes.Azure,
+            Brushes.Brown,
+            Brushes.BurlyWood,
+            Brushes.Cornsilk,
+            Brushes.Cyan,
+            Brushes.DarkBlue,
+            Brushes.DarkCyan,
+            Brushes.DarkGoldenrod
+        };
+
         private void ChromaticIndexButton_Click(object sender, RoutedEventArgs e)
         {
 
@@ -212,18 +237,17 @@ namespace GraphCreatingApp
             for (int i = 0; i < edges.Count; i++)
                 stringBuilder.Append($"\nЦвет ребра между вершинами {edges[i].FirstVertex} и {edges[i].SecondVertex} это: цвет C{edges[i].Color}.");
 
-            
-
-
             for (int i = 0; i < edges.Count; i++)
             {
-                if (edges[i].Color == 0) Edges[i].Edge.Stroke = Brushes.LightPink;
-                if (edges[i].Color == 1) Edges[i].Edge.Stroke = Brushes.DarkKhaki;
-                if (edges[i].Color == 2) Edges[i].Edge.Stroke = Brushes.DarkGreen;
-                if (edges[i].Color == 3) Edges[i].Edge.Stroke = Brushes.Fuchsia;
-                if (edges[i].Color == 4) Edges[i].Edge.Stroke = Brushes.DimGray;
-                if (edges[i].Color == 5) Edges[i].Edge.Stroke = Brushes.Firebrick;
+                for (int j = 0; j < brushes.Count; j++)
+                {
+                    if (edges[i].Color == j)
+                    {
+                        Edges[i].Edge.Stroke = brushes[j];
+                        break;
+                    }
 
+                }
             }
 
 
