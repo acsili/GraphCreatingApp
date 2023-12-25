@@ -9,32 +9,32 @@
         Title="MainWindow" Height="500" Width="900">
     <Grid>
         <Canvas x:Name="MainCanvas" Background="AntiqueWhite" Margin="0,0,180,0" MouseDown="MainCanvas_MouseDown" MouseUp="MainCanvas_MouseUp"/>
-        <Button x:Name="CreateVertexButton" HorizontalAlignment="Left" Margin="724,22,0,0" 
-                VerticalAlignment="Top" Height="56" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold"
+        <Button x:Name="CreateVertexButton" HorizontalAlignment="Left" Margin="724,13,0,0" 
+                VerticalAlignment="Top" Height="44" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold"
                 Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Click="CreateButton_Click" 
                 Cursor="Hand">
             <Button.Content>
                 <TextBlock Text="Добавить вершину" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
-        <Button x:Name="DeleteVertexButton" HorizontalAlignment="Left" Margin="724,104,0,0" 
-                VerticalAlignment="Top" Height="56" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
+        <Button x:Name="DeleteVertexButton" HorizontalAlignment="Left" Margin="725,67,0,0" 
+                VerticalAlignment="Top" Height="43" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
                 Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Click="DeleteButton_Click"
                 Cursor="Hand">
             <Button.Content>
                 <TextBlock Text="Удалить вершину" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
-        <Button x:Name="CreateEdgeButton" HorizontalAlignment="Left" Margin="724,192,0,0" 
-                VerticalAlignment="Top" Height="56" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
+        <Button x:Name="CreateEdgeButton" HorizontalAlignment="Left" Margin="724,121,0,0" 
+                VerticalAlignment="Top" Height="50" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
                 Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Click="CreateEdgeButton_Click" 
                 Cursor="Hand">
             <Button.Content>
                 <TextBlock Text="Добавить ребро" TextWrapping="Wrap" TextAlignment="Center"/>
             </Button.Content>
         </Button>
-        <Button x:Name="DeleteEdgeButton" HorizontalAlignment="Left" Margin="724,283,0,0" 
-                VerticalAlignment="Top" Height="56" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
+        <Button x:Name="DeleteEdgeButton" HorizontalAlignment="Left" Margin="724,182,0,0" 
+                VerticalAlignment="Top" Height="39" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
                 Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Click="DeleteEdgeButton_Click" 
                 Cursor="Hand">
             <Button.Content>
@@ -42,13 +42,32 @@
             </Button.Content>
         </Button>
         <Button x:Name="ChromaticIndexButton" HorizontalAlignment="Left" 
-                Margin="724,371,0,0" VerticalAlignment="Top" Height="70" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
+                Margin="724,232,0,0" VerticalAlignment="Top" Height="69" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
                 Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" Click="ChromaticIndexButton_Click" 
                 Cursor="Hand">
             <Button.Content>
-                <TextBlock Text="Вычислить хроматический индекс" TextWrapping="Wrap" TextAlignment="Center"/>
+                <TextBlock Text="Вычислить хроматический индекс" TextWrapping="Wrap" TextAlignment="Center" Height="63"/>
             </Button.Content>
         </Button>
-
+        <Button x:Name="SaveButton" HorizontalAlignment="Left" 
+                Margin="724,313,0,0" VerticalAlignment="Top" Height="35" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
+                Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" 
+                Cursor="Hand" Click="SaveButton_Click">
+            <Button.Content>
+                <TextBlock TextWrapping="Wrap" TextAlignment="Center" Height="25" Text="Сохранить"/>
+            </Button.Content>
+        </Button>
+        <Button x:Name="OpenButton" HorizontalAlignment="Left" 
+            Margin="725,358,0,0" VerticalAlignment="Top" Height="35" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
+            Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" 
+            Cursor="Hand" Click="OpenButton_Click" >
+            <TextBlock TextWrapping="Wrap" TextAlignment="Center" Height="25" Text="Открыть"/>
+        </Button>
+        <Button x:Name="HelpButton" HorizontalAlignment="Left" 
+            Margin="725,402,0,0" VerticalAlignment="Top" Height="55" Width="150" FontSize="18" FontFamily="Adobe Garamond Pro Bold" 
+            Background="{DynamicResource {x:Static SystemColors.GradientActiveCaptionBrushKey}}" 
+            Cursor="Hand" Click="HelpButton_Click" >
+            <TextBlock TextWrapping="Wrap" TextAlignment="Center" Height="44" Text="Справочная информация"/>
+        </Button>
     </Grid>
 </Window>

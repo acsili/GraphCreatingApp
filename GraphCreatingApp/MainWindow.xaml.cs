@@ -1,9 +1,12 @@
 ﻿using GraphCreatingApp.Graph;
+using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
 using System.Drawing.Imaging;
+using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -118,6 +121,7 @@ namespace GraphCreatingApp
                                 selected1,
                                 selected2
                             ));
+
 
                             MainCanvas.Children.Add(Edges[^1].Edge);
 
@@ -256,6 +260,127 @@ namespace GraphCreatingApp
 
         }
 
-        
+        private void SaveButton_Click(object sender, RoutedEventArgs e)
+        {
+            SaveGraph saveGraphs = new SaveGraph();
+            saveGraphs.Vertex = Vertices.Select(e => 
+            new VertexInfo
+            {
+                VertexX = e.Point.X,
+                VertexY = e.Point.Y,
+
+            }).ToList();
+            saveGraphs.Edge = Edges.Select(e =>
+            new EdgeInfo
+            {
+                V1 = e.V1,
+                V2 = e.V2,
+
+            }).ToList();
+
+            var fileName = string.Empty;
+            var sd = new SaveFileDialog
+            {
+                DefaultExt = "json"
+            };
+            if (sd.ShowDialog() == true)
+            {
+                fileName = sd.FileName;
+            }
+
+            if (fileName == string.Empty)
+                return;
+            var fs = File.Open(fileName, FileMode.Create);
+
+            var json = JsonSerializer.Serialize(saveGraphs);
+            var info = new UTF8Encoding(true).GetBytes(json);
+            fs.Write(info, 0, info.Length);
+            fs.Close();
+
+        }
+
+        private void OpenButton_Click(object sender, RoutedEventArgs e)
+        {
+            var fd = new OpenFileDialog
+            {
+                Filter = "*.json|*.json"
+            };
+            if (fd.ShowDialog() == false)
+            {
+                MessageBox.Show("Файл не найден", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            var file = fd.FileName;
+            FileStream fs = File.Open(file, FileMode.Open, FileAccess.Read);
+            var list = JsonSerializer.Deserialize<SaveGraph>(fs);
+            if (list == null)
+                return;
+            
+
+            Vertices = new List<(Ellipse, Point)>();
+            Edges = new List<(Line, int, int)>();
+
+            Vertices = list.Vertex.Select(e =>
+            (
+                new Ellipse
+                {
+                    Height = 2 * R,
+                    Width = 2 * R,
+                    StrokeThickness = 3,
+                    Stroke = Brushes.Black,
+                    StrokeDashCap = PenLineCap.Round,
+
+                    Fill = Brushes.DarkGray,
+                },
+                new Point(e.VertexX, e.VertexY)
+            )).ToList();
+
+            Edges = list.Edge.Select(e =>
+            (
+                new Line
+                {
+                    Stroke = Brushes.Black,
+                    StrokeThickness = 5,
+                    X1 = Vertices[e.V1].Point.X,
+                    Y1 = Vertices[e.V1].Point.Y,
+                    X2 = Vertices[e.V2].Point.X,
+                    Y2 = Vertices[e.V2].Point.Y,
+                },
+
+                e.V1,
+                e.V2
+            )).ToList();
+
+            MainCanvas.Children.Clear();
+
+            foreach (var vertex in Vertices)
+            {
+                MainCanvas.Children.Add(vertex.Vertex);
+
+                Canvas.SetLeft(vertex.Vertex, vertex.Point.X - R);
+                Canvas.SetTop(vertex.Vertex, vertex.Point.Y - R);
+            }
+
+            foreach (var edge in Edges)
+                MainCanvas.Children.Add(edge.Edge);
+
+            fs.Close();
+        }
+
+        private void HelpButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Программное обеспечение для визуализуального представления графов\n"
+                + "Автор: Овчинников И. С.\n"
+                + "Возможности:\n"
+                + "1. Добавление вершин\n"
+                + "2. Удаление вершин\n"
+                + "3. Добавление ребер\n"
+                + "4. Удаление ребер\n"
+                + "5. Вычисление хроматического индекса графа\n"
+                + "6. Сохранение графа в формате json\n"
+                + "7. Открытие сохраненного графа\n",
+                "Справочная информация");
+        }
     }
 }
